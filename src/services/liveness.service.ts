@@ -166,7 +166,7 @@ export const getLivenessResults = async (sessionId: string) => {
 // ==================== VERIFICATION SERVICES ====================
 
 export const getVerificationRetries = async (data: RetriesData): Promise<ServiceResult> => {
-    const { projectId, userId, activity } = data;
+    const { projectId, userId, activity = DEFAULT_VALUES.INAPP_ACTIVITY } = data;
 
     if (projectId !== SUPPORTED_PROJECTS.CATHOLIC_PAY) {
         return createErrorResponse(
