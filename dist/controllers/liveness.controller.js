@@ -51,7 +51,6 @@ var createLivenessSession = function (req, res) { return __awaiter(void 0, void 
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
-                console.error('Error creating session:', err_1);
                 res.status(500).json({ error: err_1.message });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
@@ -72,7 +71,6 @@ var getLivenessResults = function (req, res) { return __awaiter(void 0, void 0, 
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
-                console.error('Error getting results:', err_2);
                 res.status(500).json({ error: err_2.message });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
@@ -114,7 +112,6 @@ var verificationLivenessUpload = function (req, res) { return __awaiter(void 0, 
                 return [3 /*break*/, 3];
             case 2:
                 err_4 = _a.sent();
-                console.log('Error in verification upload:', err_4);
                 res.status(500).json({ error: err_4.message });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];

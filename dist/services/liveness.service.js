@@ -248,6 +248,7 @@ var uploadVerificationData = function (data, projectId) { return __awaiter(void 
                 return [2 /*return*/, createSuccessResponse(responseData.message || 'Liveness saved successfully', responseData.data || null, responseData.code || HTTP_STATUS.OK)];
             case 3:
                 error_4 = _f.sent();
+                console.log("Error: ", error_4);
                 return [2 /*return*/, createErrorResponse(((_b = (_a = error_4.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message) || 'Failed to save liveness', ((_d = (_c = error_4.response) === null || _c === void 0 ? void 0 : _c.data) === null || _d === void 0 ? void 0 : _d.data) || null, ((_e = error_4.response) === null || _e === void 0 ? void 0 : _e.status) || HTTP_STATUS.INTERNAL_SERVER_ERROR)];
             case 4: return [2 /*return*/];
         }

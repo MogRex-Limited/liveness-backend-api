@@ -244,7 +244,8 @@ export const uploadVerificationData = async (
             responseData.code || HTTP_STATUS.OK
         );
 
-    } catch (error: any) {        
+    } catch (error: any) {  
+        console.log("Error: ", error);
         return createErrorResponse(
             error.response?.data?.message || 'Failed to save liveness',
             error.response?.data?.data || null,
