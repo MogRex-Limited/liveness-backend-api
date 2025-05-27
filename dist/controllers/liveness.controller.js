@@ -81,18 +81,19 @@ var getLivenessResults = function (req, res) { return __awaiter(void 0, void 0, 
 }); };
 exports.getLivenessResults = getLivenessResults;
 var verificationRetries = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_3;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, projectId, userId, activity, result, err_3;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, (0, liveness_service_1.verificationRetriesService)(req.params)];
+                _b.trys.push([0, 2, , 3]);
+                _a = req.params, projectId = _a.projectId, userId = _a.userId, activity = _a.activity;
+                return [4 /*yield*/, (0, liveness_service_1.verificationRetriesService)({ projectId: projectId, userId: userId, activity: activity })];
             case 1:
-                result = _a.sent();
+                result = _b.sent();
                 res.json(result);
                 return [3 /*break*/, 3];
             case 2:
-                err_3 = _a.sent();
+                err_3 = _b.sent();
                 res.status(500).json({ error: err_3.message });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];

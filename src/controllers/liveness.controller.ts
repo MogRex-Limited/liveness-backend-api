@@ -28,7 +28,8 @@ export const getLivenessResults = async (req: Request, res: Response) => {
 
 export const verificationRetries = async (req: Request, res: Response) => {
   try {
-    const result = await verificationRetriesService(req.params);
+    const { projectId, userId, activity } = req.params;
+    const result = await verificationRetriesService({ projectId, userId, activity });
     res.json(result);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
