@@ -3,9 +3,9 @@ import {
     CreateFaceLivenessSessionCommand,
     GetFaceLivenessSessionResultsCommand,
 } from '@aws-sdk/client-rekognition';
-import { fromIni } from '@aws-sdk/credential-providers';
 import axios from 'axios';
 import FormData from 'form-data';
+import 'dotenv/config';
 
 // ==================== TYPES ====================
 
@@ -65,10 +65,13 @@ const HTTP_STATUS = {
 
 // ==================== CLIENT CONFIGURATION ====================
 
-const createRekognitionClient = (): RekognitionClient => {
+const createRekognitionClient = (): RekognitionClient => {    
     return new RekognitionClient({
         region: process.env.AWS_REGION,
-        credentials: fromIni({ profile: process.env.AWS_PROFILE }),
+        credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        }
     });
 };
 

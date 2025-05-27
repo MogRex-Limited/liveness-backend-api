@@ -61,9 +61,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verificationUploadService = exports.verificationRetriesService = exports.getLivenessResultsService = exports.createLivenessSessionService = exports.uploadVerificationData = exports.getVerificationRetries = exports.getLivenessResults = exports.createLivenessSession = void 0;
 var client_rekognition_1 = require("@aws-sdk/client-rekognition");
-var credential_providers_1 = require("@aws-sdk/credential-providers");
 var axios_1 = __importDefault(require("axios"));
 var form_data_1 = __importDefault(require("form-data"));
+require("dotenv/config");
 // ==================== CONSTANTS ====================
 var SUPPORTED_PROJECTS = {
     CATHOLIC_PAY: 'CatholicPay'
@@ -83,7 +83,10 @@ var HTTP_STATUS = {
 var createRekognitionClient = function () {
     return new client_rekognition_1.RekognitionClient({
         region: process.env.AWS_REGION,
-        credentials: (0, credential_providers_1.fromIni)({ profile: process.env.AWS_PROFILE }),
+        credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        }
     });
 };
 var rekognitionClient = createRekognitionClient();

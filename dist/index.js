@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 app.get('/current/', function (req, res) {
     res.json({ message: "Reached the current path!" });
 });
-app.use('/api', liveness_routes_1.default);
+app.use('/api/v1', liveness_routes_1.default);
 var PORT = parseInt(process.env.PORT || '3000', 10);
 var HOST = process.env.HOST || '127.0.0.1';
 app.listen(PORT, HOST, function () {
