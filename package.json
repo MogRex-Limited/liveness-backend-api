@@ -9,6 +9,9 @@
     "build": "tsc",
     "start": "node dist/index.js"
   },
+  "engines": {
+    "node": "v22.15.1"
+  },
   "author": "Google LLC",
   "license": "Apache-2.0",
   "dependencies": {
