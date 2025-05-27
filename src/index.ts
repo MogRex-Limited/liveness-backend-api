@@ -62,7 +62,9 @@ app.get('/get-liveness-results/:sessionId', async (req, res) => {
   }
 });
 
-const port = parseInt(process.env.PORT || '3000');
-app.listen(port, () => {
-  console.log(`Liveness Server running on http://localhost:${port}`);
+const PORT = parseInt(process.env.PORT || '3000', 10);
+const HOST = process.env.HOST || '127.0.0.1';
+
+app.listen(PORT, HOST, () => {
+  console.log(`Liveness Server running on http://${HOST}:${PORT}`);
 });

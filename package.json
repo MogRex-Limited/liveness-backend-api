@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.18",
     "@types/dotenv": "^8.2.3",
+    "@types/express": "^5.0.2",
     "@types/node": "^20.17.50",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
