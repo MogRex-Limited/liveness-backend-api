@@ -189,18 +189,18 @@ var getLivenessResults = function (sessionId) { return __awaiter(void 0, void 0,
 exports.getLivenessResults = getLivenessResults;
 // ==================== VERIFICATION SERVICES ====================
 var getVerificationRetries = function (data) { return __awaiter(void 0, void 0, void 0, function () {
-    var projectId, userId, _a, activity, apiUrl, secretKey, response, error_3;
-    var _b, _c, _d, _e, _f;
-    return __generator(this, function (_g) {
-        switch (_g.label) {
+    var projectId, userId, activity, apiUrl, secretKey, response, error_3;
+    var _a, _b, _c, _d, _e;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
             case 0:
-                projectId = data.projectId, userId = data.userId, _a = data.activity, activity = _a === void 0 ? DEFAULT_VALUES.ACTIVITY : _a;
+                projectId = data.projectId, userId = data.userId, activity = data.activity;
                 if (projectId !== SUPPORTED_PROJECTS.CATHOLIC_PAY) {
                     return [2 /*return*/, createErrorResponse('Unsupported project ID', null, HTTP_STATUS.BAD_REQUEST)];
                 }
-                _g.label = 1;
+                _f.label = 1;
             case 1:
-                _g.trys.push([1, 3, , 4]);
+                _f.trys.push([1, 3, , 4]);
                 validateEnvironmentVariables(['CATHOLICPAY_API_URL', 'CATHOLICPAY_SECRET_KEY']);
                 apiUrl = "".concat(process.env.CATHOLICPAY_API_URL, "/verification/retries");
                 secretKey = process.env.CATHOLICPAY_SECRET_KEY;
@@ -212,12 +212,12 @@ var getVerificationRetries = function (data) { return __awaiter(void 0, void 0, 
                         headers: getAuthHeaders(secretKey),
                     })];
             case 2:
-                response = _g.sent();
+                response = _f.sent();
                 return [2 /*return*/, createSuccessResponse('Retries returned successfully', response.data.data)];
             case 3:
-                error_3 = _g.sent();
+                error_3 = _f.sent();
                 console.error('Error fetching verification retries:', error_3);
-                return [2 /*return*/, createErrorResponse(((_c = (_b = error_3.response) === null || _b === void 0 ? void 0 : _b.data) === null || _c === void 0 ? void 0 : _c.message) || 'Failed to fetch retries', ((_e = (_d = error_3.response) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.data) || null, ((_f = error_3.response) === null || _f === void 0 ? void 0 : _f.status) || HTTP_STATUS.INTERNAL_SERVER_ERROR)];
+                return [2 /*return*/, createErrorResponse(((_b = (_a = error_3.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message) || 'Failed to fetch retries', ((_d = (_c = error_3.response) === null || _c === void 0 ? void 0 : _c.data) === null || _d === void 0 ? void 0 : _d.data) || null, ((_e = error_3.response) === null || _e === void 0 ? void 0 : _e.status) || HTTP_STATUS.INTERNAL_SERVER_ERROR)];
             case 4: return [2 /*return*/];
         }
     });
