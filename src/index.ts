@@ -17,7 +17,7 @@ app.get('/current/', (req, res) => {
   res.json({ message: "Reached the current path!" });
 });
 
-app.use('/api', livenessRouter);
+app.use('/api/v1', livenessRouter);
 
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const HOST = process.env.HOST || '127.0.0.1';
