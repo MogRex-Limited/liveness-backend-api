@@ -48,6 +48,10 @@ app.get('/', (req, res) => {
   res.send(`Hello ${name}!`);
 });
 
+app.get('/current/', (req, res) => {
+  res.json({ message: "Reached the current path!" });
+});
+
 app.get('/get-liveness-results/:sessionId', async (req, res) => {
   try {
     const command = new GetFaceLivenessSessionResultsCommand({
