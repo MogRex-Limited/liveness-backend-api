@@ -42,3 +42,13 @@ export const verificationLivenessUpload = async (req: Request, res: Response) =>
     res.status(500).json({ error: err.message });
   }
 };
+
+export const confirmLivenessUpload = async (req: Request, res: Response) => {
+  try {
+    // You can add logic here to check the status of the upload, e.g., by sessionId or projectId
+    // For now, just return a success confirmation
+    res.json({ success: true, message: "Liveness upload confirmed." });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+};
