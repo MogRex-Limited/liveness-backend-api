@@ -52,7 +52,7 @@ const SUPPORTED_PROJECTS = {
 
 const DEFAULT_VALUES = {
     ACTIVITY: 'default',
-    INAPP_ACTIVITY: 'inapp_verification',
+    INAPP_ACTIVITY: 'registration',
     SESSION_ID: 'default',
     AUDIT_IMAGES_LIMIT: 2
 } as const;
