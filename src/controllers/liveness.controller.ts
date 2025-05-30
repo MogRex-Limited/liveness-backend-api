@@ -5,6 +5,7 @@ import {
   verificationRetriesService,
   verificationUploadService,
 } from '../services/liveness.service';
+import path from "path";
 
 export const createLivenessSession = async (req: Request, res: Response) => {
   try {
@@ -45,9 +46,8 @@ export const verificationLivenessUpload = async (req: Request, res: Response) =>
 
 export const confirmLivenessUpload = async (req: Request, res: Response) => {
   try {
-    // You can add logic here to check the status of the upload, e.g., by sessionId or projectId
-    // For now, just return a success confirmation
-    res.json({ success: true, message: "Liveness upload confirmed." });
+    const viewPath = path.join(__dirname, "../views/verification-complete.html");
+    res.sendFile(viewPath);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
