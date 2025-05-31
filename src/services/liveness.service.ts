@@ -185,7 +185,7 @@ export const getVerificationRetries = async (data: RetriesData): Promise<Service
         const response = await axios.get<VerificationResponse>(apiUrl, {
             params: {
                 user_id: userId,
-                activity: activity,
+                activity: activity ?? data.activity ?? DEFAULT_VALUES.INAPP_ACTIVITY,
             },
             headers: getAuthHeaders(secretKey),
         });
