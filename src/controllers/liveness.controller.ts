@@ -40,8 +40,7 @@ export const verificationLivenessUpload = async (req: Request, res: Response) =>
     const result = await verificationUploadService(req.body, req.params.projectId);
     res.json(result);
   } catch (err: any) {
-    console.log("Error New: ", err);
-    res.status(500).json({
+    res.status(err.status || 500).json({
       message: err.message,
       data: null,
       success: false,
