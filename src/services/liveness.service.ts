@@ -16,6 +16,14 @@ interface VerificationResponse {
     code?: number;
 }
 
+interface VerificationUploadedResponse {
+    data?: any;
+    message?: string;
+    status?: number;
+    success?: boolean;
+    code?: number;
+}
+
 interface ServiceResult {
     message: string;
     data: any;
@@ -225,7 +233,7 @@ export const uploadVerificationData = async (
         const apiUrl = `${process.env.CATHOLICPAY_API_URL}/verification/save-liveness`;
         const secretKey = process.env.CATHOLICPAY_SECRET_KEY!;
 
-        const response = await axios.post<VerificationResponse>(
+        const response = await axios.post<VerificationUploadedResponse>(
             apiUrl, 
             form,
             {
@@ -239,9 +247,9 @@ export const uploadVerificationData = async (
         const responseData = response.data;
         
         return createSuccessResponse(
-            responseData.message || 'Liveness saved successfully',
+            responseData.message || 'Liveness uploaded successfully',
             responseData.data || null,
-            responseData.code || HTTP_STATUS.OK
+            response.status || HTTP_STATUS.OK
         );
 
     } catch (error: any) {  
@@ -249,7 +257,7 @@ export const uploadVerificationData = async (
         return createErrorResponse(
             error.response?.data?.message || 'Failed to save liveness',
             error.response?.data?.data || null,
-            error.response?.status || HTTP_STATUS.INTERNAL_SERVER_ERROR
+            HTTP_STATUS.INTERNAL_SERVER_ERROR
         );
     }
 };
