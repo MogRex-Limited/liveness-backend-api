@@ -244,6 +244,8 @@ export const uploadVerificationData = async (
             }
         );
 
+        console.log("Success: ", response);
+        
         const responseData = response.data;
         
         return createSuccessResponse(
