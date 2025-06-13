@@ -73,7 +73,7 @@ const HTTP_STATUS = {
 
 // ==================== CLIENT CONFIGURATION ====================
 
-const createRekognitionClient = (): RekognitionClient => {    
+const createRekognitionClient = (): RekognitionClient => {
     return new RekognitionClient({
         region: process.env.AWS_REGION,
         credentials: {
@@ -88,8 +88,8 @@ const rekognitionClient = createRekognitionClient();
 // ==================== UTILITY FUNCTIONS ====================
 
 const createErrorResponse = (
-    message: string, 
-    data: any = null, 
+    message: string,
+    data: any = null,
     code: number = HTTP_STATUS.INTERNAL_SERVER_ERROR
 ): ServiceResult => ({
     message,
@@ -99,8 +99,8 @@ const createErrorResponse = (
 });
 
 const createSuccessResponse = (
-    message: string, 
-    data: any = null, 
+    message: string,
+    data: any = null,
     code: number = HTTP_STATUS.OK
 ): ServiceResult => ({
     message,
@@ -128,7 +128,7 @@ export const createLivenessSession = async (
 ): Promise<string> => {
     try {
         validateEnvironmentVariables(['S3_BUCKET']);
-        
+
         const input = {
             Settings: {
                 OutputConfig: {
@@ -141,11 +141,11 @@ export const createLivenessSession = async (
 
         const command = new CreateFaceLivenessSessionCommand(input);
         const response = await rekognitionClient.send(command);
-        
+
         if (!response.SessionId) {
             throw new Error('Failed to create liveness session: No session ID returned');
         }
-        
+
         return response.SessionId;
     } catch (error) {
         console.error('Error creating liveness session:', error);
@@ -162,7 +162,7 @@ export const getLivenessResults = async (sessionId: string) => {
         const command = new GetFaceLivenessSessionResultsCommand({
             SessionId: sessionId,
         });
-        
+
         const response = await rekognitionClient.send(command);
         return response;
     } catch (error) {
@@ -178,8 +178,8 @@ export const getVerificationRetries = async (data: RetriesData): Promise<Service
 
     if (projectId !== SUPPORTED_PROJECTS.CATHOLIC_PAY) {
         return createErrorResponse(
-            'Unsupported project ID', 
-            null, 
+            'Unsupported project ID',
+            null,
             HTTP_STATUS.BAD_REQUEST
         );
     }
@@ -205,7 +205,7 @@ export const getVerificationRetries = async (data: RetriesData): Promise<Service
 
     } catch (error: any) {
         console.error('Error fetching verification retries:', error);
-        
+
         return createErrorResponse(
             error.response?.data?.message || 'Failed to fetch retries',
             error.response?.data?.data || null,
@@ -215,53 +215,51 @@ export const getVerificationRetries = async (data: RetriesData): Promise<Service
 };
 
 export const uploadVerificationData = async (
-    data: VerificationData, 
+    data: VerificationData,
     projectId: string
 ): Promise<ServiceResult | undefined> => {
     if (projectId !== SUPPORTED_PROJECTS.CATHOLIC_PAY) {
         return createErrorResponse(
-            'Unsupported project ID', 
-            null, 
+            'Unsupported project ID',
+            null,
             HTTP_STATUS.BAD_REQUEST
         );
     }
 
-    try {
-        validateEnvironmentVariables(['CATHOLICPAY_API_URL', 'CATHOLICPAY_SECRET_KEY']);
+    // try {
+    validateEnvironmentVariables(['CATHOLICPAY_API_URL', 'CATHOLICPAY_SECRET_KEY']);
 
-        const form = createFormData(data);
-        const apiUrl = `${process.env.CATHOLICPAY_API_URL}/verification/save-liveness`;
-        const secretKey = process.env.CATHOLICPAY_SECRET_KEY!;
+    const form = createFormData(data);
+    const apiUrl = `${process.env.CATHOLICPAY_API_URL}/verification/save-liveness`;
+    const secretKey = process.env.CATHOLICPAY_SECRET_KEY!;
 
-        const response = await axios.post<VerificationUploadedResponse>(
-            apiUrl, 
-            form,
-            {
-                headers: {
-                    ...form.getHeaders(),
-                    ...getAuthHeaders(secretKey),
-                },
-            }
-        );
+    const response = await axios.post<VerificationUploadedResponse>(
+        apiUrl,
+        form,
+        {
+            headers: {
+                ...form.getHeaders(),
+                ...getAuthHeaders(secretKey),
+            },
+        }
+    );
 
-        console.log("Success: ", response);
-        
-        const responseData = response.data;
-        
-        return createSuccessResponse(
-            responseData.message || 'Liveness uploaded successfully',
-            responseData.data || null,
-            response.status || HTTP_STATUS.OK
-        );
+    const responseData = response.data;
 
-    } catch (error: any) {  
-        console.log("Error New: ", error.response);
-        return createErrorResponse(
-            error.response?.data?.message || 'Failed to save liveness',
-            error.response?.data?.data || null,
-            HTTP_STATUS.INTERNAL_SERVER_ERROR
-        );
-    }
+    return createSuccessResponse(
+        responseData.message || 'Liveness uploaded successfully',
+        responseData.data || null,
+        response.status || HTTP_STATUS.OK
+    );
+
+    // } catch (error: any) {  
+    //     console.log("Error New: ", error.response);
+    //     return createErrorResponse(
+    //         error.response?.data?.message || 'Failed to save liveness',
+    //         error.response?.data?.data || null,
+    //         error.response.status || HTTP_STATUS.INTERNAL_SERVER_ERROR
+    //     );
+    // }
 };
 
 
@@ -276,7 +274,7 @@ const createFormData = (data: VerificationData): FormData => {
     } = data;
 
     const form = new FormData();
-    
+
     form.append('user_id', String(user_id));
     form.append('session_id', String(session_id));
     form.append('activity', String(activity));
